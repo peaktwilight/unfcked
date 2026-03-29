@@ -498,20 +498,28 @@ import { ShieldAlert, AlertTriangle, AlertCircle, Info, Wrench, BadgeCheck, File
     });
   </script>
 
-  <!-- ====== SOCIAL SHARING ====== -->
-  <section class="px-4 py-24 fade-up">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="font-mono font-bold text-3xl md:text-5xl mb-4 tracking-tight">Share the unfuckery</h2>
-      <p class="text-text-dim mb-8 text-lg">Let others know their vibe-coded projects need help.</p>
-      <a
-        href="https://twitter.com/intent/tweet?text=unfuck%20%E2%80%94%20find%20every%20issue%20in%20your%20vibe-coded%20project%20%F0%9F%94%A7%20My%20score%3A%20___%2F100%20https://unfuck.doruk.ch"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3 rounded-xl transition-all duration-200 hover:scale-105 font-mono text-sm"
-      >
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        Share on X
-      </a>
+  <!-- ====== DARE YOUR COWORKER ====== -->
+  <section class="px-4 py-20 fade-up">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="font-mono font-bold text-2xl sm:text-3xl mb-4">Dare your coworker</h2>
+      <p class="text-text-dim mb-8">Think their vibe-coded project is production-ready? Let unfuck be the judge.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a
+          href="https://twitter.com/intent/tweet?text=I%20dare%20you%20to%20run%20unfuck%20on%20your%20project%20%F0%9F%94%A5%20My%20score%3A%20___%2F100%20https%3A%2F%2Funfuck.doruk.ch"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-white/10 border border-white/20 rounded-lg font-mono text-sm hover:bg-white/20 transition-colors"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Dare on X
+        </a>
+        <button
+          onclick="navigator.clipboard.writeText('I dare you to run unfuck on your project \u{1F525} https://unfuck.doruk.ch'); this.textContent='Copied! Send the dare.'; setTimeout(() => this.textContent='Copy dare link', 2000)"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-accent/10 border border-accent/30 rounded-lg font-mono text-sm text-accent hover:bg-accent/20 transition-colors cursor-pointer"
+        >
+          Copy dare link
+        </button>
+      </div>
     </div>
   </section>
 
