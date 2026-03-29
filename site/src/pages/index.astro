@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { ShieldAlert, AlertTriangle, AlertCircle, Info, Wrench, BadgeCheck, FileJson, Github, Copy, Check, ChevronDown, KeyRound, Eye, Code, Database, FileWarning, Search, Globe, Image, FileCode, Package, Timer, MessageSquare, Bug } from 'lucide-astro';
 ---
 
 <Layout>
@@ -14,7 +15,7 @@ import Layout from '../layouts/Layout.astro';
         class="text-text-dim hover:text-white transition-colors"
         aria-label="GitHub"
       >
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <Github class="w-6 h-6" />
       </a>
     </div>
   </nav>
@@ -38,9 +39,13 @@ import Layout from '../layouts/Layout.astro';
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
 
     <div class="relative z-10 text-center max-w-5xl mx-auto">
-      <h1 class="title-glow font-mono font-black text-[clamp(4rem,15vw,10rem)] leading-[0.9] tracking-tighter text-accent select-none mb-6">
-        unfuck
-      </h1>
+      <!-- Hero title with scan lines -->
+      <div class="relative inline-block">
+        <h1 class="title-glow font-mono font-black text-[clamp(5rem,18vw,14rem)] leading-[0.85] tracking-tighter text-accent select-none mb-6">
+          unfuck
+        </h1>
+        <div class="scan-lines absolute inset-0 pointer-events-none"></div>
+      </div>
       <p class="text-xl md:text-2xl text-text-dim max-w-2xl mx-auto mb-12 font-medium leading-relaxed">
         Your vibe-coded app has <span class="text-accent font-bold">47 problems</span>.<br />
         Let's find all of them.
@@ -66,31 +71,31 @@ import Layout from '../layouts/Layout.astro';
               <span class="text-text-dim">Files scanned:</span> <span class="text-white">47</span>
             </div>
             <div class="terminal-line mt-3" style="animation-delay: 0.9s">
-              <span class="text-critical">&#x1F534; CRITICAL</span> <span class="text-text-dim">&#xB7;</span> Hardcoded API key in <span class="text-white">src/config.ts:12</span>
+              <span class="inline-flex items-center gap-1"><ShieldAlert class="w-4 h-4 text-critical" /><span class="text-critical">CRITICAL</span></span> <span class="text-text-dim">&middot;</span> Hardcoded API key in <span class="text-white">src/config.ts:12</span>
             </div>
             <div class="terminal-line" style="animation-delay: 1.1s">
-              <span class="text-critical">&#x1F534; CRITICAL</span> <span class="text-text-dim">&#xB7;</span> .env not in .gitignore
+              <span class="inline-flex items-center gap-1"><ShieldAlert class="w-4 h-4 text-critical" /><span class="text-critical">CRITICAL</span></span> <span class="text-text-dim">&middot;</span> .env not in .gitignore
             </div>
             <div class="terminal-line mt-2" style="animation-delay: 1.3s">
-              <span class="text-high">&#x1F7E0; HIGH</span> <span class="text-text-dim">&#xB7;</span> Missing meta description
+              <span class="inline-flex items-center gap-1"><AlertTriangle class="w-4 h-4 text-high" /><span class="text-high">HIGH</span></span> <span class="text-text-dim">&middot;</span> Missing meta description
             </div>
             <div class="terminal-line" style="animation-delay: 1.45s">
-              <span class="text-high">&#x1F7E0; HIGH</span> <span class="text-text-dim">&#xB7;</span> No error boundary
+              <span class="inline-flex items-center gap-1"><AlertTriangle class="w-4 h-4 text-high" /><span class="text-high">HIGH</span></span> <span class="text-text-dim">&middot;</span> No error boundary
             </div>
             <div class="terminal-line" style="animation-delay: 1.6s">
-              <span class="text-high">&#x1F7E0; HIGH</span> <span class="text-text-dim">&#xB7;</span> No loading states
+              <span class="inline-flex items-center gap-1"><AlertTriangle class="w-4 h-4 text-high" /><span class="text-high">HIGH</span></span> <span class="text-text-dim">&middot;</span> No loading states
             </div>
             <div class="terminal-line mt-2" style="animation-delay: 1.8s">
-              <span class="text-medium">&#x1F7E1; MEDIUM</span> <span class="text-text-dim">&#xB7;</span> 3 unused dependencies
+              <span class="inline-flex items-center gap-1"><AlertCircle class="w-4 h-4 text-medium" /><span class="text-medium">MEDIUM</span></span> <span class="text-text-dim">&middot;</span> 3 unused dependencies
             </div>
             <div class="terminal-line" style="animation-delay: 1.95s">
-              <span class="text-medium">&#x1F7E1; MEDIUM</span> <span class="text-text-dim">&#xB7;</span> Dev dependency in wrong section
+              <span class="inline-flex items-center gap-1"><AlertCircle class="w-4 h-4 text-medium" /><span class="text-medium">MEDIUM</span></span> <span class="text-text-dim">&middot;</span> Dev dependency in wrong section
             </div>
             <div class="terminal-line mt-2" style="animation-delay: 2.15s">
-              <span class="text-low">&#x1F535; LOW</span> <span class="text-text-dim">&#xB7;</span> 12 console.log statements
+              <span class="inline-flex items-center gap-1"><Info class="w-4 h-4 text-low" /><span class="text-low">LOW</span></span> <span class="text-text-dim">&middot;</span> 12 console.log statements
             </div>
             <div class="terminal-line" style="animation-delay: 2.3s">
-              <span class="text-low">&#x1F535; LOW</span> <span class="text-text-dim">&#xB7;</span> 3 TODO comments
+              <span class="inline-flex items-center gap-1"><Info class="w-4 h-4 text-low" /><span class="text-low">LOW</span></span> <span class="text-text-dim">&middot;</span> 3 TODO comments
             </div>
             <div class="terminal-line mt-4 pt-3 border-t border-border" style="animation-delay: 2.7s">
               <span class="text-text-dim">SCORE:</span>
@@ -110,7 +115,7 @@ import Layout from '../layouts/Layout.astro';
         rel="noopener noreferrer"
         class="inline-flex items-center gap-3 bg-accent hover:bg-accent-dim text-white font-bold text-lg px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg shadow-accent/20"
       >
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <Github class="w-6 h-6" />
         View on GitHub
       </a>
       <p class="text-text-dim font-mono text-sm mt-6">
@@ -121,7 +126,7 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Scroll hint -->
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-text-dim animate-bounce">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+      <ChevronDown class="w-6 h-6" />
     </div>
   </section>
 
@@ -146,58 +151,58 @@ import Layout from '../layouts/Layout.astro';
       <!-- Critical -->
       <div class="bg-bg-card border border-border rounded-xl p-6 hover:border-critical/40 transition-colors">
         <div class="flex items-center gap-2 mb-4">
-          <span class="text-2xl">&#x1F534;</span>
+          <ShieldAlert class="w-6 h-6 text-critical" />
           <h3 class="font-mono font-bold text-critical text-lg">Critical</h3>
         </div>
         <ul class="space-y-2 text-sm text-text-dim">
-          <li class="flex items-start gap-2"><span class="text-critical mt-0.5">&#x25CF;</span> Hardcoded secrets</li>
-          <li class="flex items-start gap-2"><span class="text-critical mt-0.5">&#x25CF;</span> .env exposure</li>
-          <li class="flex items-start gap-2"><span class="text-critical mt-0.5">&#x25CF;</span> eval() usage</li>
-          <li class="flex items-start gap-2"><span class="text-critical mt-0.5">&#x25CF;</span> innerHTML injection</li>
-          <li class="flex items-start gap-2"><span class="text-critical mt-0.5">&#x25CF;</span> SQL injection</li>
+          <li class="flex items-start gap-2"><KeyRound class="w-4 h-4 text-critical mt-0.5 shrink-0" /> Hardcoded secrets</li>
+          <li class="flex items-start gap-2"><Eye class="w-4 h-4 text-critical mt-0.5 shrink-0" /> .env exposure</li>
+          <li class="flex items-start gap-2"><Code class="w-4 h-4 text-critical mt-0.5 shrink-0" /> eval() usage</li>
+          <li class="flex items-start gap-2"><FileCode class="w-4 h-4 text-critical mt-0.5 shrink-0" /> innerHTML injection</li>
+          <li class="flex items-start gap-2"><Database class="w-4 h-4 text-critical mt-0.5 shrink-0" /> SQL injection</li>
         </ul>
       </div>
 
       <!-- High -->
       <div class="bg-bg-card border border-border rounded-xl p-6 hover:border-high/40 transition-colors">
         <div class="flex items-center gap-2 mb-4">
-          <span class="text-2xl">&#x1F7E0;</span>
+          <AlertTriangle class="w-6 h-6 text-high" />
           <h3 class="font-mono font-bold text-high text-lg">High</h3>
         </div>
         <ul class="space-y-2 text-sm text-text-dim">
-          <li class="flex items-start gap-2"><span class="text-high mt-0.5">&#x25CF;</span> Missing meta tags</li>
-          <li class="flex items-start gap-2"><span class="text-high mt-0.5">&#x25CF;</span> No error boundary</li>
-          <li class="flex items-start gap-2"><span class="text-high mt-0.5">&#x25CF;</span> No loading states</li>
-          <li class="flex items-start gap-2"><span class="text-high mt-0.5">&#x25CF;</span> No 404 page</li>
-          <li class="flex items-start gap-2"><span class="text-high mt-0.5">&#x25CF;</span> Missing favicon</li>
+          <li class="flex items-start gap-2"><Globe class="w-4 h-4 text-high mt-0.5 shrink-0" /> Missing meta tags</li>
+          <li class="flex items-start gap-2"><ShieldAlert class="w-4 h-4 text-high mt-0.5 shrink-0" /> No error boundary</li>
+          <li class="flex items-start gap-2"><Timer class="w-4 h-4 text-high mt-0.5 shrink-0" /> No loading states</li>
+          <li class="flex items-start gap-2"><Search class="w-4 h-4 text-high mt-0.5 shrink-0" /> No 404 page</li>
+          <li class="flex items-start gap-2"><Image class="w-4 h-4 text-high mt-0.5 shrink-0" /> Missing favicon</li>
         </ul>
       </div>
 
       <!-- Medium -->
       <div class="bg-bg-card border border-border rounded-xl p-6 hover:border-medium/40 transition-colors">
         <div class="flex items-center gap-2 mb-4">
-          <span class="text-2xl">&#x1F7E1;</span>
+          <AlertCircle class="w-6 h-6 text-medium" />
           <h3 class="font-mono font-bold text-medium text-lg">Medium</h3>
         </div>
         <ul class="space-y-2 text-sm text-text-dim">
-          <li class="flex items-start gap-2"><span class="text-medium mt-0.5">&#x25CF;</span> Unused dependencies</li>
-          <li class="flex items-start gap-2"><span class="text-medium mt-0.5">&#x25CF;</span> Misplaced dev deps</li>
-          <li class="flex items-start gap-2"><span class="text-medium mt-0.5">&#x25CF;</span> Stale lockfile</li>
+          <li class="flex items-start gap-2"><Package class="w-4 h-4 text-medium mt-0.5 shrink-0" /> Unused dependencies</li>
+          <li class="flex items-start gap-2"><Package class="w-4 h-4 text-medium mt-0.5 shrink-0" /> Misplaced dev deps</li>
+          <li class="flex items-start gap-2"><FileWarning class="w-4 h-4 text-medium mt-0.5 shrink-0" /> Stale lockfile</li>
         </ul>
       </div>
 
       <!-- Low -->
       <div class="bg-bg-card border border-border rounded-xl p-6 hover:border-low/40 transition-colors">
         <div class="flex items-center gap-2 mb-4">
-          <span class="text-2xl">&#x1F535;</span>
+          <Info class="w-6 h-6 text-low" />
           <h3 class="font-mono font-bold text-low text-lg">Low</h3>
         </div>
         <ul class="space-y-2 text-sm text-text-dim">
-          <li class="flex items-start gap-2"><span class="text-low mt-0.5">&#x25CF;</span> console.log statements</li>
-          <li class="flex items-start gap-2"><span class="text-low mt-0.5">&#x25CF;</span> TODO comments</li>
-          <li class="flex items-start gap-2"><span class="text-low mt-0.5">&#x25CF;</span> Long files</li>
-          <li class="flex items-start gap-2"><span class="text-low mt-0.5">&#x25CF;</span> Silent catches</li>
-          <li class="flex items-start gap-2"><span class="text-low mt-0.5">&#x25CF;</span> <code class="text-text-dim">any</code> types</li>
+          <li class="flex items-start gap-2"><MessageSquare class="w-4 h-4 text-low mt-0.5 shrink-0" /> console.log statements</li>
+          <li class="flex items-start gap-2"><FileWarning class="w-4 h-4 text-low mt-0.5 shrink-0" /> TODO comments</li>
+          <li class="flex items-start gap-2"><FileCode class="w-4 h-4 text-low mt-0.5 shrink-0" /> Long files</li>
+          <li class="flex items-start gap-2"><Bug class="w-4 h-4 text-low mt-0.5 shrink-0" /> Silent catches</li>
+          <li class="flex items-start gap-2"><Code class="w-4 h-4 text-low mt-0.5 shrink-0" /> <code class="text-text-dim">any</code> types</li>
         </ul>
       </div>
     </div>
@@ -209,21 +214,104 @@ import Layout from '../layouts/Layout.astro';
       <h2 class="font-mono font-bold text-3xl md:text-5xl text-center mb-4 tracking-tight">Hall of shame</h2>
       <p class="text-text-dim text-center mb-12 text-lg">We ran unfuck on popular vibe-coded projects.</p>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="text-center p-4 bg-bg-card border border-border rounded-xl">
-          <div class="font-mono text-2xl font-black text-critical">23</div>
-          <div class="text-xs text-text-dim mt-1">"my-saas-starter"</div>
+        <!-- 23 - Generic SaaS Starter -->
+        <div class="text-center p-6 bg-bg-card border border-border rounded-xl">
+          <div class="font-mono text-4xl font-black text-critical">23</div>
+          <div class="text-xs text-text-dim mt-1 font-semibold">Generic SaaS Starter</div>
+          <div class="text-[10px] text-text-dim/50 font-mono mt-0.5">"my-saas-starter"</div>
+          <div class="mt-3 space-y-1">
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">4</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-critical rounded-full" style="width: 80%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">7</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-high rounded-full" style="width: 70%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">3</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-medium rounded-full" style="width: 40%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">5</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-low rounded-full" style="width: 50%"></div></div>
+            </div>
+          </div>
         </div>
-        <div class="text-center p-4 bg-bg-card border border-border rounded-xl">
-          <div class="font-mono text-2xl font-black text-high">41</div>
-          <div class="text-xs text-text-dim mt-1">"ai-chat-template"</div>
+
+        <!-- 41 - AI Chat Template -->
+        <div class="text-center p-6 bg-bg-card border border-border rounded-xl">
+          <div class="font-mono text-4xl font-black text-high">41</div>
+          <div class="text-xs text-text-dim mt-1 font-semibold">AI Chat Template</div>
+          <div class="text-[10px] text-text-dim/50 font-mono mt-0.5">"ai-chat-template"</div>
+          <div class="mt-3 space-y-1">
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">2</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-critical rounded-full" style="width: 40%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">5</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-high rounded-full" style="width: 50%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">4</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-medium rounded-full" style="width: 55%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">8</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-low rounded-full" style="width: 80%"></div></div>
+            </div>
+          </div>
         </div>
-        <div class="text-center p-4 bg-bg-card border border-border rounded-xl">
-          <div class="font-mono text-2xl font-black text-medium">58</div>
-          <div class="text-xs text-text-dim mt-1">"vibe-coded-todo"</div>
+
+        <!-- 58 - Vibe-Coded Todo -->
+        <div class="text-center p-6 bg-bg-card border border-border rounded-xl">
+          <div class="font-mono text-4xl font-black text-medium">58</div>
+          <div class="text-xs text-text-dim mt-1 font-semibold">Vibe-Coded Todo</div>
+          <div class="text-[10px] text-text-dim/50 font-mono mt-0.5">"vibe-coded-todo"</div>
+          <div class="mt-3 space-y-1">
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">1</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-critical rounded-full" style="width: 20%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">3</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-high rounded-full" style="width: 30%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">2</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-medium rounded-full" style="width: 25%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">6</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-low rounded-full" style="width: 60%"></div></div>
+            </div>
+          </div>
         </div>
-        <div class="text-center p-4 bg-bg-card border border-border rounded-xl">
-          <div class="font-mono text-2xl font-black text-green">94</div>
-          <div class="text-xs text-text-dim mt-1">"hand-crafted-with-love"</div>
+
+        <!-- 94 - Hand-Crafted With Love -->
+        <div class="text-center p-6 bg-bg-card border border-border rounded-xl hall-of-fame-glow relative">
+          <div class="font-mono text-4xl font-black text-green">94</div>
+          <div class="text-xs text-text-dim mt-1 font-semibold">Hand-Crafted With Love</div>
+          <div class="text-[10px] text-text-dim/50 font-mono mt-0.5">"hand-crafted-with-love"</div>
+          <div class="mt-3 space-y-1">
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">0</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-critical rounded-full" style="width: 0%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">0</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-high rounded-full" style="width: 0%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">1</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-medium rounded-full" style="width: 15%"></div></div>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-text-dim w-6 text-right">2</span>
+              <div class="flex-1 h-1.5 rounded-full bg-border overflow-hidden"><div class="h-full bg-low rounded-full" style="width: 20%"></div></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -238,7 +326,10 @@ import Layout from '../layouts/Layout.astro';
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- --fix -->
         <div class="bg-bg-card border border-border rounded-xl p-8 hover:border-accent/30 transition-colors group">
-          <div class="font-mono text-accent text-2xl font-bold mb-3">--fix</div>
+          <div class="flex items-center gap-3 mb-3">
+            <Wrench class="w-6 h-6 text-accent" />
+            <span class="font-mono text-accent text-2xl font-bold">--fix</span>
+          </div>
           <h3 class="font-bold text-xl mb-2 text-white">Auto-fix mode</h3>
           <p class="text-text-dim text-sm leading-relaxed">
             Fixes safe issues automatically. Removes console.logs, adds .gitignore entries, cleans up deps. Shows before/after score.
@@ -250,7 +341,10 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- --badge -->
         <div class="bg-bg-card border border-border rounded-xl p-8 hover:border-accent/30 transition-colors group">
-          <div class="font-mono text-accent text-2xl font-bold mb-3">--badge</div>
+          <div class="flex items-center gap-3 mb-3">
+            <BadgeCheck class="w-6 h-6 text-accent" />
+            <span class="font-mono text-accent text-2xl font-bold">--badge</span>
+          </div>
           <h3 class="font-bold text-xl mb-2 text-white">README badge</h3>
           <p class="text-text-dim text-sm leading-relaxed">
             Generate a shields.io badge for your README. Show the world your project isn't a dumpster fire.
@@ -265,7 +359,10 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- --json -->
         <div class="bg-bg-card border border-border rounded-xl p-8 hover:border-accent/30 transition-colors group">
-          <div class="font-mono text-accent text-2xl font-bold mb-3">--json</div>
+          <div class="flex items-center gap-3 mb-3">
+            <FileJson class="w-6 h-6 text-accent" />
+            <span class="font-mono text-accent text-2xl font-bold">--json</span>
+          </div>
           <h3 class="font-bold text-xl mb-2 text-white">Machine output</h3>
           <p class="text-text-dim text-sm leading-relaxed">
             Pipe it to other tools. CI/CD integration. Build dashboards. Feed it to another AI, we won't judge.
@@ -310,32 +407,32 @@ import Layout from '../layouts/Layout.astro';
       <div class="space-y-3">
         <div class="flex items-center gap-4">
           <div class="w-24 text-right font-mono text-sm font-bold text-green">90-100</div>
-          <div class="flex-1 h-8 rounded-lg bg-green/20 border border-green/30 flex items-center px-4">
+          <div class="flex-1 h-8 rounded-lg verdict-bar-green flex items-center px-4">
             <span class="font-mono text-sm font-bold text-green">CERTIFIED CLEAN</span>
           </div>
         </div>
         <div class="flex items-center gap-4">
           <div class="w-24 text-right font-mono text-sm font-bold text-low">70-89</div>
-          <div class="flex-1 h-8 rounded-lg bg-low/20 border border-low/30 flex items-center px-4">
+          <div class="flex-1 h-8 rounded-lg verdict-bar-low flex items-center px-4">
             <span class="font-mono text-sm font-bold text-low">LOOKING GOOD</span>
           </div>
         </div>
         <div class="flex items-center gap-4">
           <div class="w-24 text-right font-mono text-sm font-bold text-medium">50-69</div>
-          <div class="flex-1 h-8 rounded-lg bg-medium/20 border border-medium/30 flex items-center px-4">
+          <div class="flex-1 h-8 rounded-lg verdict-bar-medium flex items-center px-4">
             <span class="font-mono text-sm font-bold text-medium">NEEDS WORK</span>
           </div>
         </div>
         <div class="flex items-center gap-4">
           <div class="w-24 text-right font-mono text-sm font-bold text-high">25-49</div>
-          <div class="flex-1 h-8 rounded-lg bg-high/20 border border-high/30 flex items-center px-4">
+          <div class="flex-1 h-8 rounded-lg verdict-bar-high flex items-center px-4">
             <span class="font-mono text-sm font-bold text-high">YIKES</span>
           </div>
         </div>
         <div class="flex items-center gap-4">
           <div class="w-24 text-right font-mono text-sm font-bold text-critical">0-24</div>
-          <div class="flex-1 h-8 rounded-lg bg-critical/20 border border-critical/30 flex items-center px-4">
-            <span class="font-mono text-sm font-bold text-critical">DUMPSTER FIRE</span>
+          <div class="flex-1 h-8 rounded-lg verdict-bar-critical flex items-center px-4">
+            <span class="font-mono text-sm font-bold text-critical dumpster-fire-pulse">DUMPSTER FIRE</span>
           </div>
         </div>
       </div>
@@ -348,13 +445,23 @@ import Layout from '../layouts/Layout.astro';
       <h2 class="font-mono font-bold text-3xl md:text-5xl text-center mb-4 tracking-tight">Quick start</h2>
       <p class="text-text-dim text-center mb-12 text-lg">One command. Zero config.</p>
 
-      <div class="bg-bg-terminal border border-border rounded-xl overflow-hidden">
+      <div class="bg-bg-terminal border border-border rounded-xl overflow-hidden relative group">
         <div class="flex items-center gap-2 px-4 py-3 bg-[#111] border-b border-border">
           <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
           <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
           <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
+          <div class="flex-1"></div>
+          <button
+            id="copy-btn"
+            class="flex items-center gap-1.5 text-text-dim hover:text-white transition-colors text-xs font-mono px-2 py-1 rounded-md hover:bg-white/10"
+            aria-label="Copy to clipboard"
+          >
+            <Copy class="w-4 h-4 copy-icon" />
+            <Check class="w-4 h-4 check-icon hidden" />
+            <span class="copy-text">Copy</span>
+          </button>
         </div>
-        <div class="p-6 font-mono text-sm leading-loose">
+        <div class="p-6 font-mono text-sm leading-loose" id="code-block">
           <div class="text-text-dim"># Clone and build</div>
           <div><span class="text-accent">$</span> git clone https://github.com/peaktwilight/unfuck</div>
           <div><span class="text-accent">$</span> cd unfuck && npm install && npm run build</div>
@@ -368,6 +475,28 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </section>
+
+  <script>
+    const copyBtn = document.getElementById('copy-btn');
+    const codeBlock = document.getElementById('code-block');
+    copyBtn?.addEventListener('click', async () => {
+      const text = codeBlock?.innerText || '';
+      await navigator.clipboard.writeText(text);
+      const copyIcon = copyBtn.querySelector('.copy-icon') as HTMLElement;
+      const checkIcon = copyBtn.querySelector('.check-icon') as HTMLElement;
+      const copyText = copyBtn.querySelector('.copy-text') as HTMLElement;
+      if (copyIcon && checkIcon && copyText) {
+        copyIcon.classList.add('hidden');
+        checkIcon.classList.remove('hidden');
+        copyText.textContent = 'Copied!';
+        setTimeout(() => {
+          copyIcon.classList.remove('hidden');
+          checkIcon.classList.add('hidden');
+          copyText.textContent = 'Copy';
+        }, 2000);
+      }
+    });
+  </script>
 
   <!-- ====== SOCIAL SHARING ====== -->
   <section class="px-4 py-24 fade-up">
@@ -388,28 +517,48 @@ import Layout from '../layouts/Layout.astro';
 
   <!-- ====== FOOTER ====== -->
   <footer class="px-4 py-20 border-t border-border">
-    <div class="max-w-4xl mx-auto text-center">
-      <p class="font-mono text-xl md:text-2xl font-bold text-text-dim mb-2">
-        AI got you <span class="text-white">80%</span> there.
-      </p>
-      <p class="font-mono text-xl md:text-2xl font-bold text-accent mb-8">
-        We handle the other 20%.
-      </p>
-      <a
-        href="https://github.com/peaktwilight/unfuck"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 text-text-dim hover:text-white transition-colors font-mono text-sm"
-      >
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        peaktwilight/unfuck
-      </a>
-      <p class="text-text-dim/50 text-xs mt-6 font-mono">Built with righteous anger and Astro.</p>
-      <p class="text-text-dim/50 text-xs mt-3 font-mono">
-        Made by <a href="https://github.com/peaktwilight" target="_blank" rel="noopener noreferrer" class="text-text-dim hover:text-white transition-colors">@peaktwilight</a>
-        &middot;
-        <a href="https://doruk.ch" target="_blank" rel="noopener noreferrer" class="text-text-dim hover:text-white transition-colors">doruk.ch</a>
-      </p>
+    <div class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        <!-- Left: Logo + Tagline -->
+        <div>
+          <a href="/" class="font-mono font-black text-2xl text-accent hover:opacity-80 transition-opacity">unfuck</a>
+          <p class="font-mono text-2xl md:text-3xl font-bold text-text-dim mt-4 leading-snug">
+            AI got you <span class="text-white">80%</span> there.
+          </p>
+          <p class="font-mono text-2xl md:text-3xl font-bold text-accent leading-snug">
+            We handle the other 20%.
+          </p>
+        </div>
+        <!-- Right: Links -->
+        <div class="flex flex-col items-start md:items-end gap-4">
+          <a
+            href="https://github.com/peaktwilight/unfuck"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-text-dim hover:text-white transition-colors font-mono text-sm"
+          >
+            <Github class="w-5 h-5" />
+            peaktwilight/unfuck
+          </a>
+          <a
+            href="https://github.com/peaktwilight"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-dim hover:text-white transition-colors font-mono text-sm"
+          >
+            @peaktwilight
+          </a>
+          <a
+            href="https://doruk.ch"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-dim hover:text-white transition-colors font-mono text-sm"
+          >
+            doruk.ch
+          </a>
+          <p class="text-text-dim/50 text-xs font-mono mt-2">Built with righteous anger and Astro.</p>
+        </div>
+      </div>
     </div>
   </footer>
 
