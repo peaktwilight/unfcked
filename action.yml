@@ -33,17 +33,17 @@ runs:
         SCORE=$(echo "$RESULT" | jq -r '.score // 0')
         VERDICT=$(echo "$RESULT" | jq -r '.verdict // "UNKNOWN"')
         TOTAL=$(echo "$RESULT" | jq '.issues | length')
-        CRITICAL=$(echo "$RESULT" | jq '[.issues[] | select(.severity == "critical")] | length')
-        HIGH=$(echo "$RESULT" | jq '[.issues[] | select(.severity == "high")] | length')
-        MEDIUM=$(echo "$RESULT" | jq '[.issues[] | select(.severity == "medium")] | length')
-        LOW=$(echo "$RESULT" | jq '[.issues[] | select(.severity == "low")] | length')
+        CRITICAL=$(echo "$RESULT" | jq '[.issues[] | select(.severity == "CRITICAL")] | length')
+        HIGH=$(echo "$RESULT" | jq '[.issues[] | select(.severity == "HIGH")] | length')
+        MEDIUM=$(echo "$RESULT" | jq '[.issues[] | select(.severity == "MEDIUM")] | length')
+        LOW=$(echo "$RESULT" | jq '[.issues[] | select(.severity == "LOW")] | length')
 
         TOP_ISSUES=$(echo "$RESULT" | jq -r '
-          [.issues[] | select(.severity == "critical" or .severity == "high")]
-          | sort_by(if .severity == "critical" then 0 else 1 end)
+          [.issues[] | select(.severity == "CRITICAL" or .severity == "HIGH")]
+          | sort_by(if .severity == "CRITICAL" then 0 else 1 end)
           | .[0:5]
           | .[]
-          | "| \(.severity | ascii_upcase) | \(.message) | \(.file // "-") |"
+          | "| \(.severity | ascii_upcase) | \(.title) | \(.detail // "-") |"
         ')
 
         if [ "$SCORE" -ge 90 ]; then
