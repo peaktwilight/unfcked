@@ -447,48 +447,43 @@ import { ShieldAlert, AlertTriangle, AlertCircle, Info, Wrench, BadgeCheck, File
     </div>
   </section>
 
-  <!-- ====== QUICK START ====== -->
-  <section class="px-4 py-24 fade-up">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="font-mono font-bold text-3xl md:text-5xl text-center mb-4 tracking-tight">Quick start</h2>
-      <p class="text-text-dim text-center mb-12 text-lg">One command. Zero config.</p>
+  <!-- ====== INSTALL ====== -->
+  <section class="px-4 py-24 fade-up" id="install">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="font-mono font-bold text-3xl md:text-5xl mb-4 tracking-tight">
+        Try it now
+      </h2>
+      <p class="text-text-dim mb-10 text-lg">One command. Zero config. No API keys.</p>
 
-      <div class="bg-bg-terminal border border-border rounded-xl overflow-hidden relative group">
-        <div class="flex items-center gap-2 px-4 py-3 bg-[#111] border-b border-border">
-          <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
-          <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
-          <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
-          <div class="flex-1"></div>
-          <button
-            id="copy-btn"
-            class="flex items-center gap-1.5 text-text-dim hover:text-white transition-colors text-xs font-mono px-2 py-1 rounded-md hover:bg-white/10"
-            aria-label="Copy to clipboard"
-          >
-            <Copy class="w-4 h-4 copy-icon" />
-            <Check class="w-4 h-4 check-icon hidden" />
-            <span class="copy-text">Copy</span>
-          </button>
+      <div class="relative group">
+        <div class="rounded-xl border border-border bg-bg-terminal p-6 font-mono text-left">
+          <div class="text-text-dim text-xs mb-3"># setup</div>
+          <div class="text-accent text-sm sm:text-base break-all" id="install-cmd">git clone https://github.com/peaktwilight/unfuck && cd unfuck && npm i && npm run build</div>
+          <div class="text-text-dim text-xs mt-4 mb-1"># scan any project</div>
+          <div class="text-white text-sm sm:text-base">node dist/cli.js /path/to/your/project</div>
+          <div class="text-text-dim text-xs mt-3 mb-1"># auto-fix + watch</div>
+          <div class="text-white text-sm sm:text-base">node dist/cli.js --fix --watch /path/to/project</div>
         </div>
-        <div class="p-6 font-mono text-sm leading-loose" id="code-block">
-          <div class="text-text-dim"># Clone and build</div>
-          <div><span class="text-accent">$</span> git clone https://github.com/peaktwilight/unfuck</div>
-          <div><span class="text-accent">$</span> cd unfuck && npm install && npm run build</div>
-          <div class="mt-4 text-text-dim"># Scan any project</div>
-          <div><span class="text-accent">$</span> node dist/cli.js /path/to/your/project</div>
-          <div class="mt-4 text-text-dim"># Auto-fix safe issues</div>
-          <div><span class="text-accent">$</span> node dist/cli.js --fix /path/to/your/project</div>
-          <div class="mt-4 text-text-dim"># Get a README badge</div>
-          <div><span class="text-accent">$</span> node dist/cli.js --badge /path/to/your/project</div>
-        </div>
+        <button
+          id="copy-btn"
+          class="absolute top-4 right-4 flex items-center gap-1.5 text-text-dim hover:text-white transition-colors text-xs font-mono px-2 py-1 rounded-md hover:bg-white/10"
+          aria-label="Copy to clipboard"
+        >
+          <Copy class="w-4 h-4 copy-icon" />
+          <Check class="w-4 h-4 check-icon hidden" />
+          <span class="copy-text">Copy</span>
+        </button>
       </div>
+
+      <p class="text-text-dim/50 text-xs mt-4 font-mono">Requires Node.js 18+ &middot; No AI, no API keys, runs 100% locally</p>
     </div>
   </section>
 
   <script>
     const copyBtn = document.getElementById('copy-btn');
-    const codeBlock = document.getElementById('code-block');
+    const installCmd = document.getElementById('install-cmd');
     copyBtn?.addEventListener('click', async () => {
-      const text = codeBlock?.innerText || '';
+      const text = installCmd?.innerText || '';
       await navigator.clipboard.writeText(text);
       const copyIcon = copyBtn.querySelector('.copy-icon') as HTMLElement;
       const checkIcon = copyBtn.querySelector('.check-icon') as HTMLElement;
