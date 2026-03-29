@@ -190,6 +190,10 @@ You shipped a project with an AI coding tool. It works on your machine. But:
 
 You won't find all of this by eyeballing it. This tool does.
 
+## Full disclosure
+
+This tool was 100% vibe-coded. We ran unfcked on itself. The circle of vibe is complete.
+
 ## License
 
 MIT

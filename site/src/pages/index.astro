@@ -45,10 +45,13 @@ import { ShieldAlert, AlertTriangle, AlertCircle, Info, Wrench, BadgeCheck, File
           unfcked
         </h1>
       </div>
-      <p class="text-xl md:text-2xl text-text-dim max-w-2xl mx-auto mb-12 font-medium leading-relaxed">
+      <p class="text-xl md:text-2xl text-text-dim max-w-2xl mx-auto mb-6 font-medium leading-relaxed">
         Your vibe-coded app has <span class="text-accent font-bold">47 problems</span>.<br />
         Let's find all of them.
       </p>
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-accent text-xs font-mono mb-12">
+        proudly vibe-coded
+      </span>
 
       <!-- Terminal -->
       <div class="max-w-2xl mx-auto mb-12">
@@ -447,6 +450,33 @@ import { ShieldAlert, AlertTriangle, AlertCircle, Info, Wrench, BadgeCheck, File
     </div>
   </section>
 
+  <!-- ====== TRY ONLINE ====== -->
+  <section class="px-4 py-24 fade-up" id="try-online">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-mono font-bold text-3xl md:text-5xl text-center mb-4 tracking-tight">Try it in your browser</h2>
+      <p class="text-text-dim text-center mb-10 text-lg">Paste your package.json — get instant results. No install needed.</p>
+
+      <div class="bg-bg-terminal border border-border rounded-xl overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-3 bg-[#111] border-b border-border">
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
+          </div>
+          <span class="text-xs text-text-dim font-mono">package.json scanner</span>
+        </div>
+        <div class="p-5">
+          <textarea id="pkg-input" rows="8" placeholder='Paste your package.json here...' class="w-full bg-transparent border border-border rounded-lg p-4 font-mono text-sm text-white placeholder-text-dim/40 focus:border-accent focus:outline-none resize-none"></textarea>
+          <button onclick="scanPackageJson()" class="mt-4 w-full py-3 bg-accent hover:bg-accent/80 text-white font-mono font-bold rounded-lg transition-colors cursor-pointer">
+            Scan it
+          </button>
+        </div>
+        <div id="pkg-results" class="hidden border-t border-border p-5 font-mono text-sm">
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ====== INSTALL ====== -->
   <section class="px-4 py-24 fade-up" id="install">
     <div class="max-w-2xl mx-auto text-center">
@@ -603,6 +633,17 @@ import { ShieldAlert, AlertTriangle, AlertCircle, Info, Wrench, BadgeCheck, File
             Not yet, but it's on the roadmap. For now, use <code class="font-mono text-accent">--json</code> and pipe to your own scripts.
           </div>
         </details>
+
+        <details class="group bg-bg-card border border-border rounded-xl overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer font-mono font-bold text-white hover:text-accent transition-colors select-none list-none [&::-webkit-details-marker]:hidden">
+            <span>Was this tool vibe-coded?</span>
+            <ChevronDown class="w-5 h-5 text-text-dim group-open:rotate-180 transition-transform duration-200 shrink-0" />
+          </summary>
+          <div class="px-6 pb-5 text-text-dim text-sm leading-relaxed">
+            Every single line. An AI wrote it, we shipped it, and now it judges other AI-written code.
+            The circle of vibe is complete.
+          </div>
+        </details>
       </div>
     </div>
   </section>
@@ -649,6 +690,9 @@ import { ShieldAlert, AlertTriangle, AlertCircle, Info, Wrench, BadgeCheck, File
             doruk.ch
           </a>
           <p class="text-text-dim/50 text-xs font-mono mt-2">Built with righteous anger and Astro.</p>
+          <p class="text-text-dim/50 text-xs font-mono mt-2">
+            This tool was 100% vibe-coded. We ran unfcked on itself. Score: 88/100. We'll fix the rest later. Probably.
+          </p>
         </div>
       </div>
     </div>
@@ -730,5 +774,109 @@ import { ShieldAlert, AlertTriangle, AlertCircle, Info, Wrench, BadgeCheck, File
         banner?.classList.add('hidden');
       }, { once: true });
     });
+  </script>
+
+  <!-- Package.json scanner script -->
+  <script is:inline>
+    function scanPackageJson() {
+      const input = document.getElementById('pkg-input').value.trim();
+      const results = document.getElementById('pkg-results');
+      results.classList.remove('hidden');
+
+      let pkg;
+      try {
+        pkg = JSON.parse(input);
+      } catch(e) {
+        results.innerHTML = '<p class="text-red-400">Invalid JSON. Paste a valid package.json.</p>';
+        return;
+      }
+
+      const issues = [];
+      const deps = pkg.dependencies || {};
+      const devDeps = pkg.devDependencies || {};
+      const scripts = pkg.scripts || {};
+      const allDepNames = Object.keys(deps);
+      const allDevDepNames = Object.keys(devDeps);
+
+      // Check: dev deps in wrong section
+      const devInProd = ['typescript', 'eslint', 'prettier', 'jest', 'vitest', 'mocha', 'chai', 'webpack', 'vite', 'rollup', 'esbuild', 'ts-node', 'nodemon', 'ts-jest'];
+      const typesInProd = allDepNames.filter(d => d.startsWith('@types/'));
+      const misplaced = allDepNames.filter(d => devInProd.includes(d));
+      if (misplaced.length > 0 || typesInProd.length > 0) {
+        issues.push({ severity: 'medium', text: 'Dev dependencies in "dependencies": ' + [...misplaced, ...typesInProd].join(', ') });
+      }
+
+      // Check: too many deps
+      if (allDepNames.length > 30) {
+        issues.push({ severity: 'medium', text: allDepNames.length + ' production dependencies \u2014 that\'s a lot. Check for unused ones.' });
+      }
+
+      // Check: no build script
+      if (!scripts.build) {
+        issues.push({ severity: 'high', text: 'No "build" script found' });
+      }
+
+      // Check: no start or dev script
+      if (!scripts.start && !scripts.dev) {
+        issues.push({ severity: 'high', text: 'No "start" or "dev" script found' });
+      }
+
+      // Check: no test script or test is default
+      if (!scripts.test || scripts.test.includes('Error: no test specified')) {
+        issues.push({ severity: 'high', text: 'No test script \u2014 deploying without tests' });
+      }
+
+      // Check: missing name
+      if (!pkg.name) {
+        issues.push({ severity: 'low', text: 'Missing "name" field' });
+      }
+
+      // Check: missing version
+      if (!pkg.version) {
+        issues.push({ severity: 'low', text: 'Missing "version" field' });
+      }
+
+      // Check: missing license
+      if (!pkg.license) {
+        issues.push({ severity: 'low', text: 'Missing "license" field' });
+      }
+
+      // Check: missing description
+      if (!pkg.description) {
+        issues.push({ severity: 'low', text: 'Missing "description" field' });
+      }
+
+      // Calculate score
+      let score = 100;
+      issues.forEach(function(i) {
+        if (i.severity === 'critical') score -= 20;
+        if (i.severity === 'high') score -= 10;
+        if (i.severity === 'medium') score -= 5;
+        if (i.severity === 'low') score -= 2;
+      });
+      score = Math.max(0, score);
+
+      const colors = { critical: 'text-red-400', high: 'text-orange-400', medium: 'text-yellow-400', low: 'text-blue-400' };
+      const labels = { critical: 'CRITICAL', high: 'HIGH', medium: 'MEDIUM', low: 'LOW' };
+
+      let verdict = 'CERTIFIED CLEAN';
+      let verdictColor = 'text-green-400';
+      if (score < 90) { verdict = 'MOSTLY GOOD'; verdictColor = 'text-green-400'; }
+      if (score < 70) { verdict = 'NEEDS WORK'; verdictColor = 'text-yellow-400'; }
+      if (score < 50) { verdict = 'PRETTY ROUGH'; verdictColor = 'text-orange-400'; }
+      if (score < 30) { verdict = 'DUMPSTER FIRE'; verdictColor = 'text-red-400'; }
+
+      let html = '';
+      if (issues.length === 0) {
+        html = '<p class="text-green-400">No issues found in your package.json. Nice.</p>';
+      } else {
+        html = issues.map(function(i) { return '<div class="flex items-start gap-2 mb-2"><span class="' + colors[i.severity] + ' font-bold text-xs">' + labels[i.severity] + '</span> <span class="text-gray-300">' + i.text + '</span></div>'; }).join('');
+      }
+
+      html += '<div class="mt-4 pt-4 border-t border-gray-800"><span class="text-text-dim">Score:</span> <span class="' + verdictColor + ' font-bold text-lg">' + score + '/100</span> <span class="text-text-dim">\u2014</span> <span class="' + verdictColor + ' font-bold">' + verdict + '</span></div>';
+      html += '<p class="text-text-dim/50 text-xs mt-3">This is a quick scan of your package.json only. Run <code class="text-accent">npx unfcked</code> for the full 45+ check scan.</p>';
+
+      results.innerHTML = html;
+    }
   </script>
 </Layout>
