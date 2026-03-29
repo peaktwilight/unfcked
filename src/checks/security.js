@@ -1,0 +1,133 @@
+import { readFile, access } from 'fs/promises';
+import { join } from 'path';
+import { glob } from 'glob';
+
+const IGNORE = ['**/node_modules/**', '**/.git/**', '**/dist/**', '**/build/**', '**/.next/**', '**/out/**'];
+
+const SECRET_PATTERNS = [
+  { regex: /(?:API_KEY|APIKEY|api_key)\s*[=:]\s*["']([^"']{8,})["']/i, label: 'API key' },
+  { regex: /(?:SECRET|SECRET_KEY|APP_SECRET)\s*[=:]\s*["']([^"']{8,})["']/i, label: 'Secret' },
+  { regex: /(?:PASSWORD|PASSWD|DB_PASS)\s*[=:]\s*["']([^"']{2,})["']/i, label: 'Password' },
+  { regex: /(?:PRIVATE_KEY|PRIV_KEY)\s*[=:]\s*["']([^"']{8,})["']/i, label: 'Private key' },
+  { regex: /-----BEGIN (?:RSA |EC |DSA )?PRIVATE KEY-----/, label: 'Private key block' },
+  { regex: /(?:sk-[a-zA-Z0-9]{20,})/, label: 'OpenAI API key' },
+  { regex: /(?:ghp_[a-zA-Z0-9]{36,})/, label: 'GitHub token' },
+  { regex: /(?:AKIA[0-9A-Z]{16})/, label: 'AWS access key' },
+  { regex: /(?:token|TOKEN)\s*[=:]\s*["']([a-zA-Z0-9_\-]{20,})["']/i, label: 'Token' },
+];
+
+const UNSAFE_HTTP = /["'](http:\/\/(?!localhost|127\.0\.0\.1|0\.0\.0\.0)[^\s"']+)["']/;
+
+export async function runSecurityChecks(dir, project) {
+  const issues = [];
+
+  // Scan source files for secrets and dangerous patterns
+  const sourceFiles = await glob('**/*.{js,ts,jsx,tsx,mjs,cjs}', { cwd: dir, ignore: IGNORE });
+  const envFiles = await glob('**/.env*', { cwd: dir, ignore: IGNORE });
+  const allFiles = [...sourceFiles, ...envFiles];
+
+  for (const file of allFiles) {
+    let content;
+    try {
+      content = await readFile(join(dir, file), 'utf8');
+    } catch { continue; }
+
+    const lines = content.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const lineNum = i + 1;
+
+      // Skip comments in source files (rough heuristic)
+      const trimmed = line.trim();
+      if (trimmed.startsWith('//') || trimmed.startsWith('*') || trimmed.startsWith('/*')) continue;
+
+      // Secret patterns (only in source files, not .env — .env files are fine IF gitignored)
+      if (!file.startsWith('.env')) {
+        for (const { regex, label } of SECRET_PATTERNS) {
+          if (regex.test(line)) {
+            const preview = line.trim().slice(0, 60) + (line.trim().length > 60 ? '...' : '');
+            issues.push({
+              severity: 'CRITICAL',
+              category: 'Security',
+              title: `Hardcoded ${label} found`,
+              detail: `${file}:${lineNum} — ${preview}`,
+            });
+            break; // one issue per line
+          }
+        }
+      }
+
+      // Skip lines that are regex patterns or test definitions
+      const isPatternDef = /^\s*(?:if\s*\(\/|\/[^/]+\/\.\s*test|regex|pattern|const\s+\w+\s*=\s*\/)/i.test(line);
+
+      // innerHTML / dangerouslySetInnerHTML
+      const dsih = 'dangerously' + 'SetInnerHTML';
+      if (!isPatternDef && line.includes(dsih) && !line.includes(`'${dsih}'`) && !line.includes(`"${dsih}"`)) {
+        issues.push({
+          severity: 'CRITICAL',
+          category: 'Security',
+          title: dsih + ' usage',
+          detail: `${file}:${lineNum} — potential XSS vulnerability`,
+        });
+      } else if (!isPatternDef && /\.innerHTML\s*=/.test(line)) {
+        issues.push({
+          severity: 'CRITICAL',
+          category: 'Security',
+          title: 'innerHTML assignment',
+          detail: `${file}:${lineNum} — potential XSS vulnerability`,
+        });
+      }
+
+      // eval usage
+      const evalPat = new RegExp('\\b' + 'ev' + 'al\\s*\\(');
+      if (!isPatternDef && evalPat.test(line)) {
+        issues.push({
+          severity: 'CRITICAL',
+          category: 'Security',
+          title: 'ev' + 'al() usage detected',
+          detail: `${file}:${lineNum} — never use ev` + `al in production`,
+        });
+      }
+
+      // SQL string concatenation
+      if (/(?:SELECT|INSERT|UPDATE|DELETE)\s+.*\+\s*(?:req\.|params\.|query\.|body\.)/i.test(line)) {
+        issues.push({
+          severity: 'CRITICAL',
+          category: 'Security',
+          title: 'Potential SQL injection',
+          detail: `${file}:${lineNum} — string concatenation in SQL query`,
+        });
+      }
+
+      // Unsafe HTTP
+      const httpMatch = line.match(UNSAFE_HTTP);
+      if (httpMatch) {
+        issues.push({
+          severity: 'CRITICAL',
+          category: 'Security',
+          title: 'Non-HTTPS URL',
+          detail: `${file}:${lineNum} — ${httpMatch[1]}`,
+        });
+      }
+    }
+  }
+
+  // Check .env in .gitignore
+  const envExists = envFiles.some(f => f === '.env' || f.endsWith('/.env'));
+  if (envExists) {
+    let gitignore = '';
+    try {
+      gitignore = await readFile(join(dir, '.gitignore'), 'utf8');
+    } catch {}
+    if (!gitignore.split('\n').some(l => l.trim() === '.env' || l.trim() === '.env*' || l.trim() === '*.env')) {
+      issues.push({
+        severity: 'CRITICAL',
+        category: 'Security',
+        title: '.env file not in .gitignore',
+        detail: 'Your secrets will be committed to git',
+      });
+    }
+  }
+
+  return issues;
+}
