@@ -93,8 +93,12 @@ export function generateDefaultConfig(): string {
   return JSON.stringify(template, null, 2) + '\n';
 }
 
-export function writeDefaultConfig(dir: string): string {
+export function writeDefaultConfig(dir: string, force = false): string {
   const filepath = join(dir, '.unfckedrc.json');
+  if (!force && existsSync(filepath)) {
+    console.warn('  Config file already exists. Use --force to overwrite.');
+    return filepath;
+  }
   writeFileSync(filepath, generateDefaultConfig(), 'utf-8');
   return filepath;
 }
