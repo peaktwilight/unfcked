@@ -1,10 +1,16 @@
 # unfuck
 
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)
+![Checks: 45+](https://img.shields.io/badge/checks-45%2B-orange.svg)
+
+[unfuck.doruk.ch](https://unfuck.doruk.ch)
+
 > Your vibe-coded app has problems. This finds all of them.
 
 AI coding tools get you 80% of the way there. This tool finds every issue in the last 20% -- the part that actually breaks in production, tanks your SEO, and leaks your API keys.
 
-No AI. No API keys. Pure static analysis. Runs in seconds.
+No AI. No API keys. **45+ checks.** Pure static analysis. Runs in seconds.
 
 ## Quick Start
 
@@ -26,17 +32,23 @@ node dist/cli.js /path/to/your/project
 - SQL injection patterns (string concatenation in queries)
 - Non-HTTPS URLs
 - Known key formats: OpenAI (`sk-`), GitHub (`ghp_`), AWS (`AKIA`)
+- Exposed `.git` directory in public/dist folders
+- Weak crypto (`Math.random()` in security contexts -- use `crypto.randomUUID()`)
 
 ### :orange_circle: High -- fix before deploying
 - Missing `<title>` tag, meta description, Open Graph tags
 - Missing favicon, `robots.txt`, `sitemap.xml`
+- Missing charset declaration (`<meta charset="utf-8">`)
 - No error boundary (React/Next.js -- crashes show a blank white screen)
 - No loading states (users stare at nothing while data fetches)
 - No 404/error page
+- No tests (deploying without a safety net)
 - Missing `.gitignore` or `node_modules` not gitignored
 - No `build` script in `package.json`
 - `process.env` usage without fallback values
 - Images missing `alt` attributes
+- Exposed source maps in output directories (leaks your source code)
+- Hardcoded `localhost` / `127.0.0.1` URLs (will break in production)
 
 ### :yellow_circle: Medium -- should fix soon
 - Dev dependencies in the wrong section (`typescript` in `dependencies`, etc.)
@@ -44,11 +56,30 @@ node dist/cli.js /path/to/your/project
 - Missing or stale lockfile
 - Files over 300 lines
 - Silent `catch` blocks (errors swallowed with no handling)
+- Deeply nested code (4+ levels -- callback hell)
+- TypeScript strict mode not enabled
+- Missing canonical URL (duplicate content issues)
+- Missing `lang` attribute on `<html>`
+- No CI/CD configuration
+- No README
+- Bundle size check (>30 production dependencies)
+- No `start` or `dev` script in `package.json`
 
 ### :blue_circle: Low -- nice to have
 - `console.log` statements left in code
 - TODO/FIXME/HACK comments
 - `any` type usage in TypeScript
+- Duplicate file names across directories
+- Empty or near-empty files
+
+## Watch Mode
+
+```bash
+# Live score updates as you fix issues
+unfuck --watch /path/to/project
+```
+
+Re-scans automatically when files change. Fix an issue, see your score go up in real time.
 
 ## Scoring
 
@@ -102,6 +133,7 @@ Paste the markdown into your README. Re-run after fixing issues to update your s
 | Flag | What it does |
 |------|-------------|
 | `--fix` | Auto-fix safe issues, show before/after score |
+| `--watch` | Re-scan on file changes, live score updates |
 | `--badge` | Generate a shields.io badge for your README |
 | `--json` | Machine-readable JSON output |
 
