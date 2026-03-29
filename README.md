@@ -5,7 +5,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)
 ![Checks: 45+](https://img.shields.io/badge/checks-45%2B-orange.svg)
 
-[unfuck.doruk.ch](https://unfuck.doruk.ch) · [npm](https://www.npmjs.com/package/unfcked)
+[unfcked.doruk.ch](https://unfcked.doruk.ch) · [npm](https://www.npmjs.com/package/unfcked)
 
 > Your vibe-coded app has problems. This finds all of them.
 
