@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+
+  <!-- Main title -->
+  <text x="600" y="200" text-anchor="middle" font-family="'Courier New', 'Lucida Console', monospace" font-weight="bold" font-size="120" fill="#f97316">unfuck</text>
+
+  <!-- Tagline -->
+  <text x="600" y="280" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="28" fill="#9ca3af">Your vibe-coded app has 47 problems. Let's find all of them.</text>
+
+  <!-- Score display -->
+  <text x="600" y="360" text-anchor="middle" font-family="'Courier New', 'Lucida Console', monospace" font-weight="bold" font-size="36" fill="#ef4444">SCORE: 34/100 — NEEDS WORK</text>
+
+  <!-- Severity indicators -->
+  <!-- Critical -->
+  <circle cx="285" cy="440" r="10" fill="#ef4444"/>
+  <text x="302" y="446" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#d1d5db">2 Critical</text>
+
+  <!-- Separator -->
+  <text x="420" y="446" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#6b7280">·</text>
+
+  <!-- High -->
+  <circle cx="450" cy="440" r="10" fill="#f97316"/>
+  <text x="467" y="446" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#d1d5db">3 High</text>
+
+  <!-- Separator -->
+  <text x="560" y="446" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#6b7280">·</text>
+
+  <!-- Medium -->
+  <circle cx="590" cy="440" r="10" fill="#eab308"/>
+  <text x="607" y="446" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#d1d5db">2 Medium</text>
+
+  <!-- Separator -->
+  <text x="730" y="446" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#6b7280">·</text>
+
+  <!-- Low -->
+  <circle cx="760" cy="440" r="10" fill="#3b82f6"/>
+  <text x="777" y="446" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#d1d5db">3 Low</text>
+
+  <!-- Bottom URL -->
+  <text x="600" y="560" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="24" fill="#6b7280">unfuck.doruk.ch</text>
+</svg>
