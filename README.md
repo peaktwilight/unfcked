@@ -153,7 +153,7 @@ Paste the markdown into your README. Re-run after fixing issues to update your s
 ## Development
 
 ```bash
-git clone https://github.com/peaktwilight/unfuck
+git clone https://github.com/peaktwilight/unfcked
 cd unfuck
 npm install
 npm run build
