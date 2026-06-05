@@ -249,7 +249,7 @@ This tool was 100% vibe-coded. We ran unfcked on itself. The circle of vibe is c
 
 ## Also by @peaktwilight
 
-- **[pwnkit](https://pwnkit.com)** — AI-powered autonomous pentesting framework. Agents that find, exploit, and verify real vulnerabilities.
+- **[pwnkit](https://0sec.ai/pwnkit)** — AI-powered autonomous pentesting framework. Agents that find, exploit, and verify real vulnerabilities.
 - **[vibechecked](https://github.com/peaktwilight/vibechecked)** — Brutal AI design review for your landing page. Scores, roasts, and red flags.
 - **[whatdiditdo](https://github.com/peaktwilight/whatdiditdo)** — One command to see everything your AI coding agent changed.
 
